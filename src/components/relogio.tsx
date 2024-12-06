@@ -27,7 +27,7 @@ export const Relogio = () => {
 
         intervaloRef.current = setInterval(() => {
             atualizarHora();
-        }, 240000);
+        }, 60000);
 
         return () => {
            
