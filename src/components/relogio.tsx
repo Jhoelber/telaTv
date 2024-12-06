@@ -5,7 +5,7 @@ export const Relogio = () => {
 
     const intervaloRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Função para atualizar a hora
+    
     const atualizarHora = () => {
         const dateToday = new Date();
         let hora = dateToday.getHours();
