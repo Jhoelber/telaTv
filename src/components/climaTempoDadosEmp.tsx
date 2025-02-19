@@ -5,7 +5,7 @@ import { IoIosWater } from "react-icons/io";
 import { LuWind } from "react-icons/lu";
 import { Relogio } from './relogio';
 
-// Tipagem do que esperamos da API
+
 interface WeatherData {
     name: string;
     sys: {
@@ -30,7 +30,7 @@ export const ClimaTempoDadosEmp = () => {
     const keyApi = "a039016986f4ab373377db704f26e335";
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keyApi}&units=metric&lang=pt_br`;
 
-    // Usando useEffect para chamar a API apenas uma vez ao montar o componente
+   
     useEffect(() => {
         const climaTempo = async () => {
             try {
@@ -42,7 +42,7 @@ export const ClimaTempoDadosEmp = () => {
             }
         };
         climaTempo();
-    }, []); // Passando o array vazio para rodar apenas uma vez quando o componente for montado
+    }, []); 
 
     return (
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>

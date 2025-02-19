@@ -41,8 +41,6 @@ export const ClimaTempo = () => {
     }, []);
 
 
-
-
     return (
         <div className="bg-gradient-to-tl  from-blue-700 to-neutral-600 w-screen h-screen relative">
             <div className={isVisible ? "grid grid-cols-[1fr,4fr,1fr] " : "grid grid-cols-1"}>
