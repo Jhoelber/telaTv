@@ -50,7 +50,7 @@ export const ClimaTempoDadosPref = () => {
             <div className="relative p-2 mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
                 {results ? (
                     <div className="flex flex-col items-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">
-                        <h2 className="text-2xl">
+                        <h2 className="text-xl">
                             {results.name}, {results.sys.country}
                         </h2>
                         <img
