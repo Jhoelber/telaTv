@@ -8,7 +8,7 @@ import { Video } from './video';
 
 export const ClimaTempo = () => {
     const [results, setResults] = useState<any>(null);
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+   
 
     const lat = "-23.1616";
     const lon = "-49.9697";
@@ -20,6 +20,7 @@ export const ClimaTempo = () => {
             const response = await axios.get(url);
             setResults(response.data);
             console.log(response.data);
+            console.log(results)
         } catch (error) {
             console.error("Erro ao buscar os dados:", error);
         }
@@ -29,59 +30,43 @@ export const ClimaTempo = () => {
 
         climaTempo();
 
-        const intervalId = setInterval(() => {
-            setIsVisible(prev => !prev);
-        }, 240000);
-
-        return () => {
-            clearInterval(intervalId);
-        };
-
+       
 
     }, []);
 
 
+
+
     return (
         <div className="bg-gradient-to-tl  from-blue-700 to-neutral-600 w-screen h-screen relative">
-            <div className={isVisible ? "grid grid-cols-[1fr,4fr,1fr] " : "grid grid-cols-1"}>
-                {isVisible && (
+            <div className="grid grid-cols-[1fr,4fr,1fr] " >
 
-                    <div className='flex flex-col items-center justify-center h-screen overflow-hidden' >
 
-                        <div className="relative  p-2  mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out ">
-                            {results ? (
+                <div className='flex flex-col items-center justify-center h-screen overflow-hidden' >
 
-                                <ClimaTempoDadosEmp />
+                    <div className="relative  p-2  mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out ">
 
-                            ) : (
-                                <p>Carregando dados...</p>
-                            )}
 
-                        </div>
+                        <ClimaTempoDadosEmp />
+
+
+
                     </div>
+                </div>
 
-                )}
-                {isVisible ?
-                    < div className="relative w-full h-full">
-                        <div className={` mt-[20%]  z-0`}>
-                            <Video />
 
-                        </div>
+
+                < div className="relative w-full h-full">
+                    <div className={` mt-[20%]  z-0`}>
+                        <Video />
+
                     </div>
-                    :
-                    <div className="relative w-full h-full">
-                        <div className={` top-0 left-0 w-full h-full z-0 `}>
-                            <Video />
-
-                        </div>
-                    </div>
+                </div>
 
 
-                }
-
-
-                {isVisible && <ClimaTempoDadosPref />}
-
+                <div>
+                    <ClimaTempoDadosPref />
+                </div>
             </div>
         </div >
     );
