@@ -72,7 +72,7 @@ export const ClimaTempo = () => {
                     </div>
                     :
                     <div className="relative w-full h-full">
-                        <div className={` top-0 left-0 w-full h-full z-0 p-4`}>
+                        <div className={` top-0 left-0 w-full h-full z-0 `}>
                             <Video />
 
                         </div>
