@@ -1,9 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { FaRegClock, FaTemperatureHigh } from "react-icons/fa";
-import { IoIosWater } from "react-icons/io";
-import { LuWind } from "react-icons/lu";
-import { Relogio } from './relogio';
+import { useEffect, useState } from 'react';
 
 // Tipagem do que esperamos da API
 interface WeatherData {
@@ -37,6 +33,7 @@ export const ClimaTempoDadosEmp = () => {
                 const response = await axios.get(url);
                 setResults(response.data);
                 console.log(response.data);
+                console.log(results)
             } catch (error) {
                 console.error("Erro ao buscar os dados:", error);
             }
