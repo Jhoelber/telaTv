@@ -31,7 +31,7 @@ export const ClimaTempo = () => {
 
         const intervalId = setInterval(() => {
             setIsVisible(prev => !prev);
-        }, 840000000);
+        }, 240000);
 
         return () => {
             clearInterval(intervalId);
