@@ -46,51 +46,58 @@ export const ClimaTempoDadosPref = () => {
 
     return (
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-            <img src="./logoprincipal.png" className='px-2 mb-4 ' alt="Logo" />
+            <img src="./logoprincipal.png" className='px-2 m-8  ' alt="Logo" />
             <div className="relative p-2 mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-                {results ? (
-                    <div className="flex flex-col items-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">
-                        <h2 className="text-xl">
-                            {results.name}, {results.sys.country}
-                        </h2>
-                        <img
-                            className="w-24 h-24"
-                            src={`https://openweathermap.org/img/wn/${results.weather[0].icon}.png`}
-                            alt="Ícone do clima"
-                        />
-                        <p>Temperatura:</p>
-                        <div className="flex">
-                            <FaTemperatureHigh className="text-xl text-red-500 mr-2" /> {results.main.temp}°C
+            {results ? (
+                    <div>
+                        <div className="flex flex-col items-center justify-center p-4  rounded-2xl bg-white shadow-lg ease-in duration-300">
+                            <h2 className="text-xl">
+                                {results.name}, {results.sys.country}
+                            </h2>
+                            <img
+                                className="w-24 h-24"
+                                src={`https://openweathermap.org/img/wn/${results.weather[0].icon}.png`}
+                                alt="Ícone do clima"
+                            />
+                            <p>Temperatura:</p>
+                            <div className="flex">
+                                <FaTemperatureHigh className="text-xl text-red-500 mr-2" /> {results.main.temp}°C
+                            </div>
+
+
+
+                        </div>
+                        <div className="flex gap-2 mt-2">
+                            <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
+                                <p>Umidade</p>
+                                <div className="flex">
+                                    <IoIosWater className="text-lg text-blue-600 mr-2" /> {results?.main.humidity}%
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
+                                <p>Vento</p>
+                                <div className="flex">
+                                    <LuWind className="text-lg text-purple-800 mr-2" />
+                                    {results?.wind.speed} Km/h
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col mt-2 py-2 items-center rounded-lg bg-white shadow-lg">
+                            <p className='text-2xl'>Relógio</p>
+                            <div className='flex flex-col'>
+                                <div className='flex gap-6 items-center'>
+                                    <FaRegClock className='text-3xl text-zinc-600' />
+                                    <Relogio />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ) : (
                     <p>Carregando dados...</p>
                 )}
-                <div className="flex gap-2 mt-2">
-                    <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
-                        <p>Umidade</p>
-                        <div className="flex">
-                            <IoIosWater className="text-lg text-blue-600 mr-2" /> {results?.main.humidity}%
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
-                        <p>Vento</p>
-                        <div className="flex">
-                            <LuWind className="text-lg text-purple-800 mr-2" />
-                            {results?.wind.speed} Km/h
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col mt-2 py-2 items-center rounded-lg bg-white shadow-lg">
-                    <p className='text-2xl'>Relógio</p>
-                    <div className='flex flex-col'>
-                        <div className='flex gap-6 items-center'>
-                            <FaRegClock className='text-3xl text-zinc-600' />
-                            <Relogio />
-                        </div>
-                    </div>
-                </div>
+               
+             
             </div>
         </div>
     );
