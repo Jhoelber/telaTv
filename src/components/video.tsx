@@ -1,18 +1,26 @@
 import React from 'react';
 
-export const Video = React.memo(() => {
-    console.log("Componente Video renderizado");
-
+export const Video= React.memo(() => {
+    const videoId = "fDOIQWzCm8A";  
+  
     return (
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative  w-full pb-[56.25%] ">
             <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/fDOIQWzCm8A?autoplay=1&mute=1&loop=1&rel=0&vq=hd1080" // Adicionando o parâmetro 'vq=hd1080'
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&vq=hd1080&mute=1`}
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Video"
+                allow="autoplay; encrypted-media; fullscreen; accelerometer; gyroscope"
+
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="video"
+                style={{
+                    objectFit: 'cover',
+                    
+                    
+                }}
             />
+
+
         </div>
     );
 });
