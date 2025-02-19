@@ -48,7 +48,8 @@ export const ClimaTempoDadosEmp = () => {
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
             <img src="./logo.png" className='py-4  mb-12' alt="Logo" />
             <div className="relative  mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-                {results ? (
+                <img src="./logoprincipal.png" alt="" />
+                {/* {results ? (
                     <div>
                         <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">
                             <h2 className="text-xl">
@@ -96,7 +97,7 @@ export const ClimaTempoDadosEmp = () => {
 
                 ) : (
                     <p>Carregando dados...</p>
-                )}
+                )} */}
 
             </div>
         </div>
