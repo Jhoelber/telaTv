@@ -7,7 +7,7 @@ export const Video= React.memo(() => {
         <div className="relative  w-full pb-[56.25%] ">
             <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&vq=hd1080&mute=1`}
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&vq=hd1080`}
                 frameBorder="0"
                 allow="autoplay; encrypted-media; fullscreen; accelerometer; gyroscope"
 
