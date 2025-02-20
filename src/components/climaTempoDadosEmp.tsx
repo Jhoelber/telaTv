@@ -43,10 +43,10 @@ export const ClimaTempoDadosEmp = () => {
 
     return (
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-            <img src="./logo.png" className='py-4  mb-12' alt="Logo" />
+            <img src="./logo.png" className='py-4  mb-' alt="Logo" />
             <div className="relative  mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-                <img src="./logoprincipal.png" alt="" />
-                <img src="./muralPref.jpg" className='' />
+                <img src="./logoprincipal.png" alt="" className='w-48 pb-2' />
+                <img src="./muralPref.jpg" className=' w-56' />
                 {/* {results ? (
                     <div>
                         <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">
