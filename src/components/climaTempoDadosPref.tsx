@@ -16,7 +16,7 @@ export const ClimaTempoDadosPref = () => {
                 <div>
 
 
-                    <img src="./muralPref.jpg" className='' />
+                  <img src="./muralPref.jpg" className='' />
                 </div>
 
 
