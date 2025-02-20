@@ -10,7 +10,7 @@ export const ClimaTempo = () => {
 
     return (
         <div className="bg-gradient-to-tl  from-blue-700 to-neutral-600 w-screen h-screen relative">
-            <div className="grid grid-cols-[1fr,3fr,1fr] " >
+            <div className="grid grid-cols-[250px,3fr,1fr] " >
 
 
                 <div className='flex flex-col items-center justify-center h-screen overflow-hidden' >

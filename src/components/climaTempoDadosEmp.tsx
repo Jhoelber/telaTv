@@ -20,7 +20,7 @@ interface WeatherData {
 }
 
 export const ClimaTempoDadosEmp = () => {
-    const [results, setResults] = useState<WeatherData | null>(null); // Tipando o estado
+    const [results, setResults] = useState<WeatherData | null>(null); 
     const lat = "-23.1616";
     const lon = "-49.9697";
     const keyApi = "a039016986f4ab373377db704f26e335";
