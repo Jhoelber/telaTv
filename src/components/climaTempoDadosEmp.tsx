@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Carousel } from './Carousel';
 
 // Tipagem do que esperamos da API
 interface WeatherData {
@@ -18,9 +19,17 @@ interface WeatherData {
         speed: number;
     };
 }
-
+const items = [
+    
+    <img src="./muralPref.jpg" className="h-60" />,
+    <img src="./CAUSA ANIMAL.png" className="w-56" />,
+     <img src="./CENTRO DA JUVENTUDE.png" className="w-56" />,
+     <img src="./OBRAS.png" className="w-56" />,
+     <img src="./PARQUES.png" className="w-56" />,
+     <img src="./SAUDE.png" className="w-56" />
+];
 export const ClimaTempoDadosEmp = () => {
-    const [results, setResults] = useState<WeatherData | null>(null); 
+    const [results, setResults] = useState<WeatherData | null>(null);
     const lat = "-23.1616";
     const lon = "-49.9697";
     const keyApi = "a039016986f4ab373377db704f26e335";
@@ -43,12 +52,13 @@ export const ClimaTempoDadosEmp = () => {
 
     return (
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-            
+
             <div className="flex flex-col items-center space-y-4">
-        {/* <img src="./logo.png" className="" alt="Logo" /> */}
-        <img src="./logoprincipal.png" alt="" className="w-48 pb-2" />
-        <img src="./muralPref.jpg" className="w-56" />
-    
+                {/* <img src="./logo.png" className="" alt="Logo" /> */}
+                <img src="./logoprincipal.png" alt="" className="w-48 pb-2" />
+                
+
+                <Carousel items={items} interval={4000} />
                 {/* {results ? (
                     <div>
                         <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">

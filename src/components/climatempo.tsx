@@ -1,3 +1,4 @@
+
 import { ClimaTempoDadosEmp } from './climaTempoDadosEmp';
 import { Video } from './video';
 
@@ -7,8 +8,8 @@ export const ClimaTempo = () => {
             <div className="grid grid-cols-[1fr,5fr]">
                 <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
                     <div className="relative p-2 mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-                        <ClimaTempoDadosEmp />
-                        {/* <ClimaTempoDadosPref /> */}
+                        <ClimaTempoDadosEmp /> 
+                       
                     </div>
                 </div>
 
