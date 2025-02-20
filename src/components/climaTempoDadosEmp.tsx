@@ -45,7 +45,7 @@ export const ClimaTempoDadosEmp = () => {
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
             
             <div className="flex flex-col items-center space-y-4">
-        <img src="./logo.png" className="" alt="Logo" />
+        {/* <img src="./logo.png" className="" alt="Logo" /> */}
         <img src="./logoprincipal.png" alt="" className="w-48 pb-2" />
         <img src="./muralPref.jpg" className="w-56" />
     
