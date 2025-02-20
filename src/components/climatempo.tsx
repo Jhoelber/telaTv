@@ -1,5 +1,5 @@
 import { ClimaTempoDadosEmp } from './climaTempoDadosEmp';
-import { ClimaTempoDadosPref } from './climaTempoDadosPref';
+
 import { Video } from './video';
 
 
