@@ -1,114 +1,22 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { Carousel } from './Carousel';
 
-// Tipagem do que esperamos da API
-interface WeatherData {
-    name: string;
-    sys: {
-        country: string;
-    };
-    weather: Array<{
-        icon: string;
-    }>;
-    main: {
-        temp: number;
-        humidity: number;
-    };
-    wind: {
-        speed: number;
-    };
-}
+// Links diretos do Cloudinary
 const items = [
-    
-    <img src="./muralPref.jpg" className="h-60" />,
-    <img src="./CAUSA ANIMAL.png" className="w-56" />,
-     <img src="./CENTRO DA JUVENTUDE.png" className="w-56" />,
-     <img src="./OBRAS.png" className="w-56" />,
-     <img src="./PARQUES.png" className="w-56" />,
-     <img src="./SAUDE.png" className="w-56" />
+   
+    <img src=" https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507700/imagesTv/emmockpoqmtizcg9tlqd.jpg" className="h-60" alt="Mural Prefeitura" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/fqniom8gjrzrqeb2g2lt.png" className="w-56" alt="Causa Animal" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/hbdnf69dh9jbmtsz79vi.png" className="w-56" alt="Centro da Juventude" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/rnkdwwiz6bsxr7cr434v.png" className="w-56" alt="Obras" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/qb857gy31mrjc6et227n.png" className="w-56" alt="Parques" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/h6pakqenzo2m24ebutog.png" className="w-56" alt="Saúde" />
 ];
+
 export const ClimaTempoDadosEmp = () => {
-    const [results, setResults] = useState<WeatherData | null>(null);
-    const lat = "-23.1616";
-    const lon = "-49.9697";
-    const keyApi = "a039016986f4ab373377db704f26e335";
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keyApi}&units=metric&lang=pt_br`;
-
-    // Usando useEffect para chamar a API apenas uma vez ao montar o componente
-    useEffect(() => {
-        const climaTempo = async () => {
-            try {
-                const response = await axios.get(url);
-                setResults(response.data);
-                console.log(response.data);
-                console.log(results)
-            } catch (error) {
-                console.error("Erro ao buscar os dados:", error);
-            }
-        };
-        climaTempo();
-    }, []); // Passando o array vazio para rodar apenas uma vez quando o componente for montado
-
     return (
         <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-
             <div className="flex flex-col items-center space-y-4">
-                {/* <img src="./logo.png" className="" alt="Logo" /> */}
-                <img src="./logoprincipal.png" alt="" className="w-48 pb-2" />
-                
-
+                <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png" alt="Logo Principal" className="w-48 pb-2" />
                 <Carousel items={items} interval={4000} />
-                {/* {results ? (
-                    <div>
-                        <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white shadow-lg ease-in duration-300">
-                            <h2 className="text-xl">
-                                {results.name}, {results.sys.country}
-                            </h2>
-                            <img
-                                className="w-24 h-24"
-                                src={`https://openweathermap.org/img/wn/${results.weather[0].icon}.png`}
-                                alt="Ícone do clima"
-                            />
-                            <p>Temperatura:</p>
-                            <div className="flex">
-                                <FaTemperatureHigh className="text-xl text-red-500 mr-2" /> {results.main.temp}°C
-                            </div>
-
-
-
-                        </div>
-                        <div className="flex gap-2 mt-2">
-                            <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
-                                <p>Umidade</p>
-                                <div className="flex">
-                                    <IoIosWater className="text-lg text-blue-600 mr-2" /> {results?.main.humidity}%
-                                </div>
-                            </div>
-                            <div className="flex flex-col items-center px-4 rounded-lg bg-white shadow-lg">
-                                <p>Vento</p>
-                                <div className="flex">
-                                    <LuWind className="text-lg text-purple-800 mr-2" />
-                                    {results?.wind.speed} Km/h
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col mt-2 py-2 items-center rounded-lg bg-white shadow-lg">
-                            <p className='text-2xl'>Relógio</p>
-                            <div className='flex flex-col'>
-                                <div className='flex gap-6 items-center'>
-                                    <FaRegClock className='text-3xl text-zinc-600' />
-                                    <Relogio />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                ) : (
-                    <p>Carregando dados...</p>
-                )} */}
-
             </div>
         </div>
     );
