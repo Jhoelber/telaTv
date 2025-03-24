@@ -3,7 +3,7 @@ import { Carousel } from './Carousel';
 // Links diretos do Cloudinary
 const items = [
    
-    <img src=" https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507700/imagesTv/emmockpoqmtizcg9tlqd.jpg" className="h-60" alt="Mural Prefeitura" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1742823674/imagesTv/qx1nheg5yi5nsuq8a2k9.jpg" className="h-60" alt="Atletismo" />,
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/fqniom8gjrzrqeb2g2lt.png" className="w-56" alt="Causa Animal" />,
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/hbdnf69dh9jbmtsz79vi.png" className="w-56" alt="Centro da Juventude" />,
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/rnkdwwiz6bsxr7cr434v.png" className="w-56" alt="Obras" />,
