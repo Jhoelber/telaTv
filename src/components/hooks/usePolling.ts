@@ -10,7 +10,8 @@ const usePolling = (url: string, interval: number, onReload: () => void) => {
       fetch(`${url}?_=${Date.now()}`) // evita cache
         .then((response) => response.json())
         .then((data) => {
-          const novaAtualizacao = data.meta?.ultimaAtualizacao;
+          const novaAtualizacao = data.ultimaAtualizacao;
+
 
           console.log("⏱️ Verificando atualização...");
           console.log("Última conhecida:", lastUpdateRef.current);
