@@ -13,9 +13,9 @@ const usePolling = (url: string, interval: number, onReload: () => void) => {
           const novaAtualizacao = data.ultimaAtualizacao;
 
 
-          console.log("⏱️ Verificando atualização...");
-          console.log("Última conhecida:", lastUpdateRef.current);
-          console.log("Nova do servidor:", novaAtualizacao);
+          // console.log("⏱️ Verificando atualização...");
+          // console.log("Última conhecida:", lastUpdateRef.current);
+          // console.log("Nova do servidor:", novaAtualizacao);
 
           if (novaAtualizacao && lastUpdateRef.current && novaAtualizacao !== lastUpdateRef.current) {
             console.log("🟢 Atualização detectada! Recarregando...");
