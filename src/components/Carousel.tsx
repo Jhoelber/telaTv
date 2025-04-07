@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-// Atualizando para aceitar qualquer tipo de conteúdo JSX
+
 interface CarouselProps {
-  items: React.ReactNode[]; // Altere para React.ReactNode[] em vez de string[]
+  items: React.ReactNode[]; 
   interval: number;
 }
 
