@@ -30,7 +30,7 @@ const usePolling = (url: string, interval: number, onReload: () => void) => {
         });
     };
 
-    checkForUpdate(); // executa logo que abre
+    checkForUpdate(); 
     const intervalId = setInterval(checkForUpdate, interval);
     return () => clearInterval(intervalId);
   }, [url, interval, onReload]);
