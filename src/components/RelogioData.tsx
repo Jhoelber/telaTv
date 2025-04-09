@@ -12,12 +12,14 @@ export const RelogioData = () => {
     }, []);
   
     const formatarData = (data: Date) => {
-      return data.toLocaleDateString("pt-BR", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-      });
-    };
+        const texto = data.toLocaleDateString("pt-BR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        });
+      
+        return texto.charAt(0).toUpperCase() + texto.slice(1);
+      };
   
     const formatarHora = (data: Date) => {
       return data.toLocaleTimeString("pt-BR", {
