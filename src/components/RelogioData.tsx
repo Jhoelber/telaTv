@@ -6,7 +6,7 @@ export const RelogioData = () => {
     useEffect(() => {
       const timer = setInterval(() => {
         setHoraAtual(new Date());
-      }, 1000);
+      }, 60000);
   
       return () => clearInterval(timer);
     }, []);
@@ -24,8 +24,8 @@ export const RelogioData = () => {
     const formatarHora = (data: Date) => {
       return data.toLocaleTimeString("pt-BR", {
         hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+        minute: "2-digit"
+       
       });
     };
 
