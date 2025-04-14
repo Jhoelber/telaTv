@@ -30,7 +30,7 @@ export const RelogioData = () => {
     };
 
     return (
-      <div className="w-full flex justify-between  bg-white/20 backdrop-blur px-3 py-4 rounded-md text-sm text-white">
+      <div className="w-full flex justify-between  bg-white/20 px-3 py-4 rounded-md text-sm text-white">
         <div className="text-2xl">{formatarHora(horaAtual)}</div>
         <div className="text-xl">{formatarData(horaAtual)}</div>
       </div>
