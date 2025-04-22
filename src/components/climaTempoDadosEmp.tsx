@@ -13,8 +13,8 @@ const items = [
 
 export const ClimaTempoDadosEmp = () => {
     return (
-        <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-            <div className="flex flex-col items-center space-y-4">
+        <div className='flex flex-col items-center justify-center  h-screen overflow-hidden'>
+            <div className="flex flex-col items-center space-y-4 bg-white/30 p-4 rounded-md">
                 <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png" alt="Logo Principal" className="w-48 pb-2" />
                 <Carousel items={items} interval={4000} />
             </div>
