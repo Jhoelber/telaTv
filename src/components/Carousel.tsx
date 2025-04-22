@@ -19,15 +19,15 @@ export const Carousel: React.FC<CarouselProps> = ({ items, interval }) => {
   }, [interval]);
 
   return (
-    <div className="relative w-full max-w-xl mx-auto">
+    <div className="relative w-full max-w-xl mx-auto ">
       <div className="overflow-hidden relative">
         <div
-          className="flex transition-transform duration-300 ease-in-out"
+          className="flex transition-transform duration-300 ease-in-out "
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {items.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-full">
-              <div className="flex items-center justify-center h-60">
+              <div className="flex items-center justify-center h-60 ">
                 {item}
               </div>
             </div>
