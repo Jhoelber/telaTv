@@ -1,6 +1,6 @@
 import { Carousel } from './Carousel';
 
-// Links diretos do Cloudinary
+
 const items = [
 
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1742823674/imagesTv/qx1nheg5yi5nsuq8a2k9.jpg" className="h-60 " alt="Atletismo" />,
