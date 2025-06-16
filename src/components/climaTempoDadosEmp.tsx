@@ -9,8 +9,8 @@ const items = [
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/rnkdwwiz6bsxr7cr434v.png" className="w-56 " alt="Obras" />,
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/qb857gy31mrjc6et227n.png" className="w-56 " alt="Parques" />,
     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/h6pakqenzo2m24ebutog.png" className="w-56 " alt="Saúde" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1750093953/imagesTv/l535meio3fsowwvs5yqf.jpg" className="w-56 " alt="Fetexas" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1750093953/imagesTv/xl1kpdjecn2nywivxnnc.jpg" className="w-56 " alt="Cavalgada" />
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1750093953/imagesTv/l535meio3fsowwvs5yqf.jpg" className="h-60 " alt="Fetexas" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1750093953/imagesTv/xl1kpdjecn2nywivxnnc.jpg" className="h-60 " alt="Cavalgada" />
 ];
 
 export const ClimaTempoDadosEmp = () => {
