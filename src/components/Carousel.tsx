@@ -27,7 +27,7 @@ export const Carousel: React.FC<CarouselProps> = ({ items, interval }) => {
         >
           {items.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-full">
-              <div className="flex items-center justify-center  ">
+              <div className="flex items-center justify-center h-60 ">
                 {item}
               </div>
             </div>
