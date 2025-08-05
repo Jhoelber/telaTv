@@ -18,7 +18,7 @@ export const ClimaTempoDadosEmp = () => {
             <div className="flex flex-col items-center space-y-4">
                 <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png" alt="Logo Principal" className="  w-48 pb-2" />
                 <Carousel items={items} interval={4000} />
-                 <img src="./turismobran.png" alt="Logo Principal" className="  w-48 pb-2" />
+                      <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1754405120/turismobran_qzvzqa.png" alt="Logo Principal" className="  w-48 pb-2" />
             </div>
         </div>
     );
