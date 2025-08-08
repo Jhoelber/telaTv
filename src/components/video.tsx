@@ -1,8 +1,7 @@
 import React from 'react';
 
 export const Video = React.memo(() => {
-    const videoId = "fDOIQWzCm8A";
-    // jIMC13n1wLU
+    
 
     return (
            <div className="w-full h-screen flex items-center justify-center bg-black">
