@@ -2,7 +2,8 @@ import React from 'react';
 
 export const Video = React.memo(() => {
     
-
+   
+    
     return (
            <div className="w-full h-screen flex items-center justify-center bg-black">
             <iframe
