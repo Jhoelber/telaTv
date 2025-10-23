@@ -10,12 +10,9 @@ export const ClimaTempo = () => {
 
                 <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
                     <div className="relative p-2 mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-
                         <ClimaTempoDadosEmp />
-
                     </div>
                 </div>
-
                 <div className="flex  flex-col items-center justify-center w-full h-full">
                     <div className="w-full h-full flex items-center justify-center flex-col">
                         <Video />
@@ -23,11 +20,8 @@ export const ClimaTempo = () => {
                             <RelogioData />
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 };
