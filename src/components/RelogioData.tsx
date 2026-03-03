@@ -42,17 +42,9 @@ export const RelogioData = ({
 
   // dia da semana curto (não corta)
   const diaSemana = useMemo(() => {
-    const map: Record<string, string> = {
-      "segunda-feira": "Segunda",
-      "terça-feira": "Terça",
-      "quarta-feira": "Quarta",
-      "quinta-feira": "Quinta",
-      "sexta-feira": "Sexta",
-      sábado: "Sábado",
-      domingo: "Domingo",
-    };
+  
     const full = now.toLocaleDateString("pt-BR", { weekday: "long" }).toLowerCase();
-    const txt = map[full] ?? full;
+    const txt =  full;
     return txt.charAt(0).toUpperCase() + txt.slice(1);
   }, [now]);
 
@@ -134,7 +126,7 @@ export const RelogioData = ({
 
           {/* aumenta um pouquinho a altura do rodapé e reduz fonte */}
           <div className="h-[32px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
-            <span className="text-white text-base font-bold leading-none clamp1">
+            <span className="text-white text-sm font-bold leading-none clamp1">
               {diaSemana}
             </span>
           </div>
@@ -167,7 +159,7 @@ export const RelogioData = ({
               <div className="clamp2 min-w-0 text-sm text-slate-600 leading-snug">
                 {current?.summary ?? "—"}
               </div>
-              
+
               {current?.source ? (
                 <span className="shrink-0 text-slate-400 text-sm">• {current.source}</span>
               ) : null}
