@@ -15,7 +15,7 @@ export const Video = React.memo(() => {
         className="absolute top-0 left-0 w-full h-full"
         src={src}
         frameBorder="0"
-
+        // 👇 NÃO deixa fullscreen aqui
         allow="autoplay; encrypted-media; picture-in-picture"
         referrerPolicy="strict-origin-when-cross-origin"
         title="video"

@@ -15,6 +15,9 @@ export const RelogioData = ({
   const [items, setItems] = useState<NewsItem[]>([]);
   const [idx, setIdx] = useState(0);
 
+  // fade sem remount
+  const [fadeOut, setFadeOut] = useState(false);
+
   useEffect(() => {
     let interval: number | undefined;
     const tick = () => setNow(new Date());
@@ -49,6 +52,7 @@ export const RelogioData = ({
     async function load() {
       try {
         const res = await fetch(endpoint, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         const list: NewsItem[] = Array.isArray(json?.items) ? json.items : [];
         if (!alive) return;
@@ -69,9 +73,18 @@ export const RelogioData = ({
     };
   }, [endpoint, refreshMs]);
 
+  // rotação com fade (sem key)
   useEffect(() => {
     if (items.length <= 1) return;
-    const t = setInterval(() => setIdx((v) => (v + 1) % items.length), rotateMs);
+
+    const t = setInterval(() => {
+      setFadeOut(true);
+      window.setTimeout(() => {
+        setIdx((v) => (v + 1) % items.length);
+        setFadeOut(false);
+      }, 180);
+    }, rotateMs);
+
     return () => clearInterval(t);
   }, [items.length, rotateMs]);
 
@@ -80,42 +93,56 @@ export const RelogioData = ({
   return (
     <>
       <style>{`
-        .fade { animation: fade .22s ease-out; }
-        @keyframes fade { from { opacity:0; transform: translateY(2px);} to { opacity:1; transform: translateY(0);} }
+        /* clamp de 1 linha (mais robusto que truncate em TV box) */
+        .clamp1{
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:1;
+          overflow:hidden;
+        }
       `}</style>
 
-      {/* MAIS ALTA pra caber text-xl/text-2xl */}
-      <div className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md">
-        {/* Bloco esquerdo */}
+      <div
+        className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
+        style={{ contain: "layout paint size" }}  // isola layout (ajuda muito em TV)
+      >
+        {/* esquerda: hora / dia */}
         <div className="w-[170px] h-full flex flex-col">
           <div className="flex-1 bg-[#062a66] flex items-center justify-center px-2">
             <span className="text-white font-extrabold text-3xl leading-none tabular-nums">
               {hora}
             </span>
           </div>
-          <div className="h-[30px] bg-[#0b4aa6] flex items-center justify-center px-2">
-            <span className="text-white text-lg font-bold leading-none truncate">
+          <div className="h-[30px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
+            <span className="text-white text-lg font-bold leading-none clamp1">
               {diaSemana}
             </span>
           </div>
         </div>
 
-        {/* Área branca */}
-        <div className="relative flex-1 min-w-0 h-full">
-          {/* selo maior */}
+        {/* direita: notícias */}
+        <div className="relative flex-1 min-w-0 h-full max-w-full overflow-hidden">
           <div className="absolute left-0 top-0 h-[28px] px-4 bg-[#0b4aa6] flex items-center">
             <span className="text-white text-lg font-extrabold tracking-wide">
               ÚLTIMAS NOTÍCIAS
             </span>
           </div>
 
-          {/* conteúdo abaixo do selo */}
-          <div key={idx} className="fade h-full min-w-0 flex flex-col justify-center pl-4 pr-4 pt-[28px]">
-            <div className="min-w-0 truncate text-xl font-extrabold text-[#0b4aa6] leading-tight">
+          <div
+            className={[
+              "h-full min-w-0 max-w-full overflow-hidden",
+              "flex flex-col justify-center pl-4 pr-4 pt-[28px]",
+              "transition-all duration-200",
+              fadeOut ? "opacity-0 translate-y-[2px]" : "opacity-100 translate-y-0",
+            ].join(" ")}
+          >
+            {/* título (1 linha garantida) */}
+            <div className="clamp1 w-full min-w-0 max-w-full text-xl font-extrabold text-[#0b4aa6] leading-tight">
               {current?.title ?? "Carregando notícias..."}
             </div>
 
-            <div className="min-w-0 truncate text-base text-black leading-tight">
+            {/* resumo (1 linha garantida) */}
+            <div className="clamp1 w-full min-w-0 max-w-full text-base text-slate-600 leading-tight">
               {current?.summary ?? "—"}
               {current?.source ? <span className="text-slate-400"> • {current.source}</span> : null}
             </div>
