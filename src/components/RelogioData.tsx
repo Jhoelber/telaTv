@@ -52,6 +52,7 @@ export const RelogioData = ({
   useEffect(() => {
     let alive = true;
 
+    
     async function load() {
       try {
         const res = await fetch(endpoint, { cache: "no-store" });
