@@ -15,7 +15,6 @@ export const RelogioData = ({
   const [items, setItems] = useState<NewsItem[]>([]);
   const [idx, setIdx] = useState(0);
 
-  // relógio sincronizado no minuto
   useEffect(() => {
     let interval: number | undefined;
     const tick = () => setNow(new Date());
@@ -44,7 +43,6 @@ export const RelogioData = ({
     return texto.charAt(0).toUpperCase() + texto.slice(1);
   }, [now]);
 
-  // buscar notícias
   useEffect(() => {
     let alive = true;
 
@@ -71,7 +69,6 @@ export const RelogioData = ({
     };
   }, [endpoint, refreshMs]);
 
-  // rotação
   useEffect(() => {
     if (items.length <= 1) return;
     const t = setInterval(() => setIdx((v) => (v + 1) % items.length), rotateMs);
@@ -87,35 +84,38 @@ export const RelogioData = ({
         @keyframes fade { from { opacity:0; transform: translateY(2px);} to { opacity:1; transform: translateY(0);} }
       `}</style>
 
-      <div className="w-full h-[52px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md">
-        {/* Bloco esquerdo: HORA em cima / DIA embaixo */}
-        <div className="w-[82px] h-full flex flex-col">
-          <div className="flex-1 bg-[#062a66] flex items-center justify-center">
-            <span className="text-white font-extrabold text-[18px] leading-none tabular-nums">
+      {/* MAIS ALTA pra caber text-xl/text-2xl */}
+      <div className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md">
+        {/* Bloco esquerdo */}
+        <div className="w-[170px] h-full flex flex-col">
+          <div className="flex-1 bg-[#062a66] flex items-center justify-center px-2">
+            <span className="text-white font-extrabold text-3xl leading-none tabular-nums">
               {hora}
             </span>
           </div>
-          <div className="h-[18px] bg-[#0b4aa6] flex items-center justify-center px-1">
-            <span className="text-white text-[10px] font-bold leading-none truncate">
+          <div className="h-[30px] bg-[#0b4aa6] flex items-center justify-center px-2">
+            <span className="text-white text-lg font-bold leading-none truncate">
               {diaSemana}
             </span>
           </div>
         </div>
 
-        {/* Área branca: selo + título + resumo */}
+        {/* Área branca */}
         <div className="relative flex-1 min-w-0 h-full">
-          <div className="absolute left-0 top-0 h-[18px] px-3 bg-[#0b4aa6] flex items-center">
-            <span className="text-white text-[11px] font-extrabold tracking-wide">
+          {/* selo maior */}
+          <div className="absolute left-0 top-0 h-[28px] px-4 bg-[#0b4aa6] flex items-center">
+            <span className="text-white text-lg font-extrabold tracking-wide">
               ÚLTIMAS NOTÍCIAS
             </span>
           </div>
 
-          <div key={idx} className="fade h-full min-w-0 flex flex-col justify-center pl-3 pr-4 pt-[18px]">
-            <div className="min-w-0 truncate text-[13px] font-extrabold text-[#0b4aa6] leading-tight">
+          {/* conteúdo abaixo do selo */}
+          <div key={idx} className="fade h-full min-w-0 flex flex-col justify-center pl-4 pr-4 pt-[28px]">
+            <div className="min-w-0 truncate text-xl font-extrabold text-[#0b4aa6] leading-tight">
               {current?.title ?? "Carregando notícias..."}
             </div>
 
-            <div className="min-w-0 truncate text-[11px] text-slate-600 leading-tight">
+            <div className="min-w-0 truncate text-base text-black leading-tight">
               {current?.summary ?? "—"}
               {current?.source ? <span className="text-slate-400"> • {current.source}</span> : null}
             </div>
