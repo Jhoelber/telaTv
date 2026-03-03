@@ -93,14 +93,21 @@ export const RelogioData = ({
   return (
     <>
       <style>{`
-        /* clamp de 1 linha (mais robusto que truncate em TV box) */
-        .clamp1{
-          display:-webkit-box;
-          -webkit-box-orient:vertical;
-          -webkit-line-clamp:1;
-          overflow:hidden;
-        }
-      `}</style>
+  .clamp1{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    overflow:hidden;
+    word-break: break-word;
+  }
+  .clamp3{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
+    word-break: break-word;
+  }
+`}</style>
 
       <div
         className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
@@ -141,10 +148,15 @@ export const RelogioData = ({
               {current?.title ?? "Carregando notícias..."}
             </div>
 
-            {/* resumo (1 linha garantida) */}
-            <div className="clamp1 w-full min-w-0 max-w-full text-base text-slate-600 leading-tight">
-              {current?.summary ?? "—"}
-              {current?.source ? <span className="text-slate-400"> • {current.source}</span> : null}
+
+            <div className="flex items-start gap-2 min-w-0">
+              <div className="clamp3 text-base text-slate-600 leading-snug min-w-0">
+                {current?.summary ?? "—"}
+              </div>
+
+              {current?.source ? (
+                <span className="shrink-0 text-slate-400 text-base">• {current.source}</span>
+              ) : null}
             </div>
           </div>
         </div>
