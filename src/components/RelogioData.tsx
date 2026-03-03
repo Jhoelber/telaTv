@@ -14,10 +14,9 @@ export const RelogioData = ({
   const [now, setNow] = useState(new Date());
   const [items, setItems] = useState<NewsItem[]>([]);
   const [idx, setIdx] = useState(0);
-
-  // fade sem remount
   const [fadeOut, setFadeOut] = useState(false);
 
+  // relógio sincronizado no minuto
   useEffect(() => {
     let interval: number | undefined;
     const tick = () => setNow(new Date());
@@ -41,11 +40,23 @@ export const RelogioData = ({
     [now]
   );
 
+  // dia da semana curto (não corta)
   const diaSemana = useMemo(() => {
-    const texto = now.toLocaleDateString("pt-BR", { weekday: "long" });
-    return texto.charAt(0).toUpperCase() + texto.slice(1);
+    const map: Record<string, string> = {
+      "segunda-feira": "Segunda",
+      "terça-feira": "Terça",
+      "quarta-feira": "Quarta",
+      "quinta-feira": "Quinta",
+      "sexta-feira": "Sexta",
+      sábado: "Sábado",
+      domingo: "Domingo",
+    };
+    const full = now.toLocaleDateString("pt-BR", { weekday: "long" }).toLowerCase();
+    const txt = map[full] ?? full;
+    return txt.charAt(0).toUpperCase() + txt.slice(1);
   }, [now]);
 
+  // buscar notícias
   useEffect(() => {
     let alive = true;
 
@@ -73,7 +84,7 @@ export const RelogioData = ({
     };
   }, [endpoint, refreshMs]);
 
-  // rotação com fade (sem key)
+  // rotação com fade (sem remount)
   useEffect(() => {
     if (items.length <= 1) return;
 
@@ -93,35 +104,37 @@ export const RelogioData = ({
   return (
     <>
       <style>{`
-  .clamp1{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
-    overflow:hidden;
-    word-break: break-word;
-  }
-  .clamp3{
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:3;
-    overflow:hidden;
-    word-break: break-word;
-  }
-`}</style>
+        .clamp1{
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:1;
+          overflow:hidden;
+          word-break: break-word;
+        }
+        .clamp2{
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+          overflow:hidden;
+          word-break: break-word;
+        }
+      `}</style>
 
       <div
-        className="w-full h-[104px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
-        style={{ contain: "layout paint size" }}  // isola layout (ajuda muito em TV)
+        className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
+        style={{ contain: "layout paint size" }}
       >
         {/* esquerda: hora / dia */}
-        <div className="w-[170px] h-full flex flex-col">
+        <div className="w-[160px] h-full flex flex-col">
           <div className="flex-1 bg-[#062a66] flex items-center justify-center px-2">
             <span className="text-white font-extrabold text-3xl leading-none tabular-nums">
               {hora}
             </span>
           </div>
-          <div className="h-[30px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
-            <span className="text-white text-lg font-bold leading-none clamp1">
+
+          {/* aumenta um pouquinho a altura do rodapé e reduz fonte */}
+          <div className="h-[32px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
+            <span className="text-white text-base font-bold leading-none clamp1">
               {diaSemana}
             </span>
           </div>
@@ -129,8 +142,9 @@ export const RelogioData = ({
 
         {/* direita: notícias */}
         <div className="relative flex-1 min-w-0 h-full max-w-full overflow-hidden">
-          <div className="absolute left-0 top-0 h-[28px] px-4 bg-[#0b4aa6] flex items-center">
-            <span className="text-white text-lg font-extrabold tracking-wide">
+          {/* selo um pouco menor */}
+          <div className="absolute left-0 top-0 h-[24px] px-4 bg-[#0b4aa6] flex items-center">
+            <span className="text-white text-base font-extrabold tracking-wide">
               ÚLTIMAS NOTÍCIAS
             </span>
           </div>
@@ -138,24 +152,23 @@ export const RelogioData = ({
           <div
             className={[
               "h-full min-w-0 max-w-full overflow-hidden",
-              "flex flex-col justify-center pl-4 pr-4 pt-[28px]",
+              "flex flex-col justify-center pl-4 pr-4 pt-[24px]",
               "transition-all duration-200",
               fadeOut ? "opacity-0 translate-y-[2px]" : "opacity-100 translate-y-0",
             ].join(" ")}
           >
-            {/* título (1 linha garantida) */}
-            <div className="clamp1 w-full min-w-0 max-w-full text-xl font-extrabold text-[#0b4aa6] leading-tight">
+            {/* título (1 linha) */}
+            <div className="clamp1 w-full min-w-0 max-w-full text-lg font-extrabold text-[#0b4aa6] leading-tight">
               {current?.title ?? "Carregando notícias..."}
             </div>
 
-
-            <div className="flex items-start gap-2 min-w-0">
-              <div className="clamp3 text-base text-slate-600 leading-snug min-w-0">
+            {/* resumo (2 linhas) + fonte pequena */}
+            <div className="flex min-w-0 items-center gap-2">
+              <div className="clamp2 min-w-0 text-sm text-slate-600 leading-snug">
                 {current?.summary ?? "—"}
               </div>
-
               {current?.source ? (
-                <span className="shrink-0 text-slate-400 text-base">• {current.source}</span>
+                <span className="shrink-0 text-slate-400 text-sm">• {current.source}</span>
               ) : null}
             </div>
           </div>
