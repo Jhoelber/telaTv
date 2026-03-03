@@ -77,7 +77,7 @@ export const RelogioData = ({
     };
   }, [endpoint, refreshMs]);
 
-  // rotação com fade (sem remount)
+  
   useEffect(() => {
     if (items.length <= 1) return;
 
