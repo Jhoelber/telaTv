@@ -110,7 +110,7 @@ export const RelogioData = ({
 `}</style>
 
       <div
-        className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
+        className="w-full h-[104px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
         style={{ contain: "layout paint size" }}  // isola layout (ajuda muito em TV)
       >
         {/* esquerda: hora / dia */}
