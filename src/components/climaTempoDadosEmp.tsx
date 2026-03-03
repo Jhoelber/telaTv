@@ -3,12 +3,11 @@ import { Carousel } from './Carousel';
 
 const items = [
 
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1742823674/imagesTv/qx1nheg5yi5nsuq8a2k9.jpg" className="h-60 " alt="Atletismo" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/fqniom8gjrzrqeb2g2lt.png" className="w-56 " alt="Causa Animal" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/hbdnf69dh9jbmtsz79vi.png" className="w-56 " alt="Centro da Juventude" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/rnkdwwiz6bsxr7cr434v.png" className="w-56 " alt="Obras" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/qb857gy31mrjc6et227n.png" className="w-56 " alt="Parques" />,
-    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/h6pakqenzo2m24ebutog.png" className="w-56 " alt="Saúde" />
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772554763/jogo_lbso5g.jpg" className="w-56" alt="Atletismo" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772554763/dengue_lqeipt.jpg" className="w-56 " alt="Dengue" />,
+    <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772554763/corrida_nuhcbs.jpg" className="w-56 " alt="Venha Treinar" />,
+   <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/h6pakqenzo2m24ebutog.png" className="w-56 " alt="Mais saude" />,
+      <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507701/imagesTv/qb857gy31mrjc6et227n.png" className="w-56 " alt="Mais lazer" />,
     
 ];
 
@@ -18,7 +17,9 @@ export const ClimaTempoDadosEmp = () => {
             <div className="flex flex-col items-center space-y-4">
                 <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png" alt="Logo Principal" className="  w-48 pb-2" />
                 <Carousel items={items} interval={4000} />
-                      <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1754405120/turismobran_qzvzqa.png" alt="Logo Principal" className="  w-48 pb-2" />
+                     <img src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772557909/jac_oafdhk.png" alt="Logo Principal" className="  w-48 pb-2" />
+
+                    
             </div>
         </div>
     );
