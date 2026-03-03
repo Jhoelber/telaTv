@@ -167,6 +167,7 @@ export const RelogioData = ({
               <div className="clamp2 min-w-0 text-sm text-slate-600 leading-snug">
                 {current?.summary ?? "—"}
               </div>
+              
               {current?.source ? (
                 <span className="shrink-0 text-slate-400 text-sm">• {current.source}</span>
               ) : null}
