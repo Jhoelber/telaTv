@@ -25,7 +25,7 @@ export const Carousel: React.FC<CarouselProps> = ({
     <div
       className={[
         // tamanho “cartaz” e não gigante
-        "w-[min(92%,260px)] aspect-[3/4]",
+        "w-[min(92%,260px)] aspect-3/4",
         // visual
         "overflow-hidden rounded-[14px] ",
         "",

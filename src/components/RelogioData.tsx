@@ -110,18 +110,18 @@ export const RelogioData = ({
       `}</style>
 
       <div
-        className="w-full h-[82px] flex overflow-hidden bg-white/95 backdrop-blur-sm border-t border-black/10"
+        className="w-full h-20.5 flex overflow-hidden bg-white/95 backdrop-blur-sm border-t border-black/10"
         style={{ contain: "layout paint size" }}
       >
         {/* esquerda: hora / dia */}
-        <div className="w-[170px] h-full flex flex-col ">
+        <div className="w-42.5 h-full flex flex-col ">
           <div className="flex-1 bg-[#062a66] flex items-center justify-center px-2">
             <span className="text-white font-extrabold text-3xl leading-none tabular-nums">
               {hora}
             </span>
           </div>
 
-          <div className="h-[28px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
+          <div className="h-7 bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
             <span className="text-white text-sm font-bold leading-none clamp1">
               {diaSemana}
             </span>
@@ -131,7 +131,7 @@ export const RelogioData = ({
         {/* direita: notícias */}
         <div className="relative flex-1 min-w-0 h-full overflow-hidden">
           {/* selo */}
-          <div className="absolute left-0 top-0 h-[22px] px-4 bg-[#0b4aa6] flex items-center">
+          <div className="absolute left-0 top-0 h-5.5 px-4 bg-[#0b4aa6] flex items-center">
             <span className="text-white text-sm font-extrabold tracking-wide">
               {label}
             </span>
@@ -140,9 +140,9 @@ export const RelogioData = ({
           <div
             className={[
               "h-full min-w-0 overflow-hidden",
-              "flex flex-col justify-center pl-4 pr-4 pt-[22px]",
+              "flex flex-col justify-center pl-4 pr-4 pt-5.5",
               "transition-all duration-200",
-              fadeOut ? "opacity-0 translate-y-[2px]" : "opacity-100 translate-y-0",
+              fadeOut ? "opacity-0 translate-y-0.5" : "opacity-100 translate-y-0",
             ].join(" ")}
           >
             <div className="clamp1 text-[16px] font-extrabold text-[#0b4aa6] leading-tight">
