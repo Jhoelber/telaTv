@@ -22,12 +22,21 @@ export const Carousel: React.FC<CarouselProps> = ({
   if (!items?.length) return null;
 
   return (
-    <div className={`overflow-hidden ${className}`}>
+    <div
+      className={[
+        // tamanho “cartaz” e não gigante
+        "w-[min(92%,260px)] aspect-[3/4]",
+        // visual
+        "overflow-hidden rounded-[14px] ",
+        "",
+        className,
+      ].join(" ")}
+    >
       <img
         src={items[idx].src}
         alt={items[idx].alt}
         draggable={false}
-        className="w-full h-full object-cover rounded-[14px]"
+        className="w-full h-full object-contain p-2"
       />
     </div>
   );
