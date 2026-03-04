@@ -45,15 +45,7 @@ export const ClimaTempoDadosEmp = () => {
           />
         </div>
 
-        {/* BASE: jacaré (garantido na tela) */}
-        <div className="w-full h-full flex items-end justify-center overflow-hidden pb-[1vh]">
-          <img
-            src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772557909/jac_oafdhk.png"
-            alt="Mascote"
-            draggable={false}
-            className="h-full max-h-full w-[min(92%,260px)] object-contain"
-          />
-        </div>
+        
       </div>
     </div>
   );
