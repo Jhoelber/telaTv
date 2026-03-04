@@ -12,37 +12,22 @@ export const Carousel: React.FC<CarouselProps> = ({
   className = "",
 }) => {
   const [idx, setIdx] = useState(0);
-  const [fade, setFade] = useState(false);
 
   useEffect(() => {
     if (!items?.length || items.length === 1) return;
-
-    const t = window.setInterval(() => {
-      setFade(true);
-      window.setTimeout(() => {
-        setIdx((v) => (v + 1) % items.length);
-        setFade(false);
-      }, 180);
-    }, interval);
-
+    const t = window.setInterval(() => setIdx((v) => (v + 1) % items.length), interval);
     return () => window.clearInterval(t);
   }, [items.length, interval]);
 
   if (!items?.length) return null;
 
-  const current = items[idx];
-
   return (
-    <div className={`relative w-full overflow-hidden ${className}`}>
+    <div className={`overflow-hidden ${className}`}>
       <img
-        src={current.src}
-        alt={current.alt}
+        src={items[idx].src}
+        alt={items[idx].alt}
         draggable={false}
-        className={[
-          "w-full h-full object-cover rounded-[14px]",
-          "transition-all duration-200",
-          fade ? "opacity-0 scale-[1.01]" : "opacity-100 scale-[1.00]",
-        ].join(" ")}
+        className="w-full h-full object-cover rounded-[14px]"
       />
     </div>
   );
