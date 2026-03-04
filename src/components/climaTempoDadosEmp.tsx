@@ -26,7 +26,7 @@ const items = [
 
 export const ClimaTempoDadosEmp = () => {
   return (
-    <div className="h-full w-full flex flex-col justify-between items-center py-[1.2vw]">
+    <div className="h-full w-full flex flex-col items-center py-[1.2vw] pb-[4vh] gap-[1.6vh]">
       {/* Topo */}
       <img
         src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png"
@@ -40,11 +40,11 @@ export const ClimaTempoDadosEmp = () => {
         <Carousel items={items} interval={4000} />
       </div>
 
-      {/* Base (jacaré NÃO some) */}
+      {/* Base (agora com folga pra não cortar na TV) */}
       <img
         src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772557909/jac_oafdhk.png"
         alt="Mascote"
-        className="w-full max-w-[210px] h-auto object-contain"
+        className="w-full max-w-[210px] h-auto object-contain mt-auto"
         draggable={false}
       />
     </div>
