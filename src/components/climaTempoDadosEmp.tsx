@@ -29,7 +29,7 @@ export const ClimaTempoDadosEmp = () => {
         {/* TOPO: brasão/logo */}
         <div className="w-full h-full flex items-center justify-center overflow-hidden">
           <img
-            src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1740507702/imagesTv/iaiverse2lkckvqpycvz.png"
+            src="https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772640781/Logotipo_Jacarezinho_TextoBranco_pnuyxj.png"
             alt="Jacarezinho"
             draggable={false}
             className="h-full max-h-full w-[min(92%,320px)] object-contain"
