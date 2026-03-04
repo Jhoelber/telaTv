@@ -12,7 +12,7 @@ export const Video = React.memo(() => {
   return (
     <div className="relative w-full pb-[56.25%] bg-black">
       <iframe
-        className="absolute top-0 left-0 w-full h-full"
+        className="absolute top-0 left-0 w-full h-full scale-[1.03] origin-center"
         src={src}
         frameBorder="0"
         allow="autoplay; encrypted-media; picture-in-picture"
