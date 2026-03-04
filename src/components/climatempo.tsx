@@ -3,27 +3,36 @@ import { RelogioData } from "./RelogioData";
 import { Video } from "./video";
 
 export const ClimaTempo = () => {
-    return (
-        <div className="bg-gradient-to-tl from-blue-500 to-neutral-200 w-screen h-screen">
-            <div className="grid grid-cols-[1fr,5fr] h-screen">
-                <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
-                    <div className="relative p-2 mx-2 rounded-md max-w-max font-semibold z-10 ease-in-out">
-                        <ClimaTempoDadosEmp />
-                    </div>
-                </div>
+  return (
+    <div
+      className="relative w-screen h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/ddzqr6r2m/image/upload/v1772633203/bgtv_nx8pdo.png')",
+      }}
+    >
+      
 
-                <div className="w-full h-full flex flex-col ">
-                    {/* Container do vídeo com overlay */}
-                    <div className=" w-full mt-4">
-                        <Video />
-
-                        {/* TARJA colada no vídeo (overlay) */}
-                        <div className=" left-0 right-0 bottom-0">
-                            <RelogioData />
-                        </div>
-                    </div>
-                </div>
+      {/* Safe-area pra “não encostar” no background */}
+      <div className="h-full w-full p-8">
+        <div className="grid h-full grid-cols-[340px,1fr] gap-8">
+          {/* Coluna esquerda (brasão/cartaz/mascote/etc fica no seu componente) */}
+          <div className="flex flex-col items-start justify-start overflow-hidden">
+            <div className="w-full">
+              <ClimaTempoDadosEmp />
             </div>
+          </div>
+
+          {/* Coluna direita */}
+          <div className="flex flex-col justify-start">
+            {/* Card do vídeo + tarja (igual a imagem) */}
+            <div className="overflow-hidden rounded-[26px] shadow-[0_18px_60px_rgba(0,0,0,0.35)] ring-1 ring-black/10">
+              <Video />
+              <RelogioData  />
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };

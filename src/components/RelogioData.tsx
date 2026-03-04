@@ -6,17 +6,18 @@ export const RelogioData = ({
   endpoint = "/api/news",
   refreshMs = 120_000,
   rotateMs = 12_000,
+  label = "DIVULGAÇÕES NACIONAIS",
 }: {
   endpoint?: string;
   refreshMs?: number;
   rotateMs?: number;
+  label?: string;
 }) => {
   const [now, setNow] = useState(new Date());
   const [items, setItems] = useState<NewsItem[]>([]);
   const [idx, setIdx] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
-  // relógio sincronizado no minuto
   useEffect(() => {
     let interval: number | undefined;
     const tick = () => setNow(new Date());
@@ -40,19 +41,15 @@ export const RelogioData = ({
     [now]
   );
 
-  // dia da semana curto (não corta)
   const diaSemana = useMemo(() => {
-  
     const full = now.toLocaleDateString("pt-BR", { weekday: "long" }).toLowerCase();
-    const txt =  full;
+    const txt = full;
     return txt.charAt(0).toUpperCase() + txt.slice(1);
   }, [now]);
 
-  // buscar notícias
   useEffect(() => {
     let alive = true;
 
-    
     async function load() {
       try {
         const res = await fetch(endpoint, { cache: "no-store" });
@@ -77,7 +74,6 @@ export const RelogioData = ({
     };
   }, [endpoint, refreshMs]);
 
-  
   useEffect(() => {
     if (items.length <= 1) return;
 
@@ -114,19 +110,18 @@ export const RelogioData = ({
       `}</style>
 
       <div
-        className="w-full h-[88px] flex overflow-hidden bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.16)] rounded-b-md max-w-full"
+        className="w-full h-[82px] flex overflow-hidden bg-white/95 backdrop-blur-sm border-t border-black/10"
         style={{ contain: "layout paint size" }}
       >
         {/* esquerda: hora / dia */}
-        <div className="w-[160px] h-full flex flex-col">
+        <div className="w-[170px] h-full flex flex-col">
           <div className="flex-1 bg-[#062a66] flex items-center justify-center px-2">
             <span className="text-white font-extrabold text-3xl leading-none tabular-nums">
               {hora}
             </span>
           </div>
 
-          {/* aumenta um pouquinho a altura do rodapé e reduz fonte */}
-          <div className="h-[32px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
+          <div className="h-[28px] bg-[#0b4aa6] flex items-center justify-center px-2 overflow-hidden">
             <span className="text-white text-sm font-bold leading-none clamp1">
               {diaSemana}
             </span>
@@ -134,35 +129,35 @@ export const RelogioData = ({
         </div>
 
         {/* direita: notícias */}
-        <div className="relative flex-1 min-w-0 h-full max-w-full overflow-hidden">
-          {/* selo um pouco menor */}
-          <div className="absolute left-0 top-0 h-[24px] px-4 bg-[#0b4aa6] flex items-center">
-            <span className="text-white text-base font-extrabold tracking-wide">
-              ÚLTIMAS NOTÍCIAS
+        <div className="relative flex-1 min-w-0 h-full overflow-hidden">
+          {/* selo */}
+          <div className="absolute left-0 top-0 h-[22px] px-4 bg-[#0b4aa6] flex items-center">
+            <span className="text-white text-sm font-extrabold tracking-wide">
+              {label}
             </span>
           </div>
 
           <div
             className={[
-              "h-full min-w-0 max-w-full overflow-hidden",
-              "flex flex-col justify-center pl-4 pr-4 pt-[24px]",
+              "h-full min-w-0 overflow-hidden",
+              "flex flex-col justify-center pl-4 pr-4 pt-[22px]",
               "transition-all duration-200",
               fadeOut ? "opacity-0 translate-y-[2px]" : "opacity-100 translate-y-0",
             ].join(" ")}
           >
-            {/* título (1 linha) */}
-            <div className="clamp1 w-full min-w-0 max-w-full text-lg font-extrabold text-[#0b4aa6] leading-tight">
+            <div className="clamp1 text-[16px] font-extrabold text-[#0b4aa6] leading-tight">
               {current?.title ?? "Carregando notícias..."}
             </div>
 
-            {/* resumo (2 linhas) + fonte pequena */}
             <div className="flex min-w-0 items-center gap-2">
-              <div className="clamp2 min-w-0 text-sm text-slate-600 leading-snug">
+              <div className="clamp2 min-w-0 text-[12.5px] text-slate-600 leading-snug">
                 {current?.summary ?? "—"}
               </div>
 
               {current?.source ? (
-                <span className="shrink-0 text-slate-400 text-sm">• {current.source}</span>
+                <span className="shrink-0 text-slate-400 text-xs">
+                  • {current.source}
+                </span>
               ) : null}
             </div>
           </div>

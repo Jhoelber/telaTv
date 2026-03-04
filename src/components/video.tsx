@@ -10,12 +10,11 @@ export const Video = React.memo(() => {
     `&playsinline=1&fs=0&disablekb=1`;
 
   return (
-    <div className="relative w-full pb-[56.25%] overflow-hidden bg-black">
+    <div className="relative w-full pb-[56.25%] bg-black">
       <iframe
         className="absolute top-0 left-0 w-full h-full"
         src={src}
         frameBorder="0"
-        // 👇 NÃO deixa fullscreen aqui
         allow="autoplay; encrypted-media; picture-in-picture"
         referrerPolicy="strict-origin-when-cross-origin"
         title="video"
