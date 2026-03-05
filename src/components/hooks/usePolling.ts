@@ -1,39 +1,80 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-const usePolling = (url: string, interval: number, onReload: () => void) => {
-  const lastUpdateRef = useRef<string | null>(
-    localStorage.getItem("ultimaAtualizacao") // Persistente entre reloads (opcional)
-  );
+const STORAGE_KEY = "ultimaAtualizacao";
+
+export default function usePolling(
+  url: string,
+  intervalMs: number,
+  onReload: () => void
+) {
+  const lastUpdateRef = useRef<string | null>(localStorage.getItem(STORAGE_KEY));
+  const inFlightRef = useRef(false);
+  const timerRef = useRef<number | null>(null);
+  const backoffRef = useRef(intervalMs);
 
   useEffect(() => {
-    const checkForUpdate = () => {
-      fetch(`${url}?_=${Date.now()}`) // evita cache
-        .then((response) => response.json())
-        .then((data) => {
-          const novaAtualizacao = data.ultimaAtualizacao;
+    let mounted = true;
 
-
-          // console.log("⏱️ Verificando atualização...");
-          // console.log("Última conhecida:", lastUpdateRef.current);
-          // console.log("Nova do servidor:", novaAtualizacao);
-
-          if (novaAtualizacao && lastUpdateRef.current && novaAtualizacao !== lastUpdateRef.current) {
-            console.log("🟢 Atualização detectada! Recarregando...");
-            onReload();
-          }
-
-          localStorage.setItem("ultimaAtualizacao", novaAtualizacao);
-          lastUpdateRef.current = novaAtualizacao;
-        })
-        .catch((error) => {
-          console.error('❌ Erro ao buscar JSON:', error);
-        });
+    const schedule = (ms: number) => {
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(run, ms);
     };
 
-    checkForUpdate(); 
-    const intervalId = setInterval(checkForUpdate, interval);
-    return () => clearInterval(intervalId);
-  }, [url, interval, onReload]);
-};
+    const run = async () => {
+      if (!mounted) return;
+      if (inFlightRef.current) {
+        schedule(backoffRef.current);
+        return;
+      }
 
-export default usePolling;
+      inFlightRef.current = true;
+
+      try {
+        // evita cache sem precisar mudar a URL toda hora
+        const res = await fetch(url, { cache: "no-store" });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        const nova = data?.ultimaAtualizacao ?? null;
+
+        if (nova) {
+          const antiga = lastUpdateRef.current;
+
+          // se mudou -> reload
+          if (antiga && nova !== antiga) onReload();
+
+          localStorage.setItem(STORAGE_KEY, nova);
+          lastUpdateRef.current = nova;
+        }
+
+        // sucesso: volta pro intervalo normal
+        backoffRef.current = intervalMs;
+      } catch (err) {
+        // falhou: backoff progressivo (até 60s)
+        backoffRef.current = Math.min(backoffRef.current * 2, 60_000);
+
+        // não logar em produção (pra não “sujar”)
+        if (import.meta.env.DEV) {
+          console.error("Polling falhou:", err);
+        }
+      } finally {
+        inFlightRef.current = false;
+        schedule(backoffRef.current);
+      }
+    };
+
+    // roda logo de cara
+    run();
+
+    // se a internet voltar, checa imediatamente
+    const onOnline = () => run();
+    window.addEventListener("online", onOnline);
+
+    return () => {
+      mounted = false;
+      window.removeEventListener("online", onOnline);
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+    };
+  }, [url, intervalMs, onReload]);
+}
