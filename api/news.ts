@@ -54,77 +54,73 @@ function looksGenericTitle(title: string) {
 function isRecent(date?: string) {
   if (!date) return false;
   const d = new Date(date).getTime();
+  if (!Number.isFinite(d)) return false;
   const limit = Date.now() - MAX_DAYS * 86400000;
   return d >= limit;
 }
 
 export default async function handler(_req: any, res: any) {
-  res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+  // mais cache = menos chamadas aos RSS = mais estabilidade
+  res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=3600");
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
 
-  const parser = new Parser({
-    timeout: 5000,
-    customFields: {
-      item: ["dc:date", "dc:type", "description", "summary"],
-    } as any,
-  });
+  try {
+    const parser = new Parser({
+      timeout: 8000,
+      customFields: {
+        item: ["dc:date", "dc:type", "description", "summary"],
+      } as any,
+    });
 
-  const feeds = await Promise.allSettled(
-    FEEDS.map(async (f) => {
-      const feed = await parser.parseURL(f.url);
+    const feeds = await Promise.allSettled(
+      FEEDS.map(async (f) => {
+        const feed = await parser.parseURL(f.url);
 
-      const items: Item[] = (feed.items || [])
-        .filter((it: any) => it["dc:type"] !== "Folder")
-        .map((it: any) => ({
-          source: f.source,
-          title: cut(it.title ?? "", 140),
-          url: it.link || "",
-          publishedAt: it.isoDate || it.pubDate || it["dc:date"],
-          summary: cut(
-            it.contentSnippet ||
-              it.summary ||
-              it.description ||
-              "",
-            180
-          ),
-        }));
+        const items: Item[] = (feed.items || [])
+          .filter((it: any) => it["dc:type"] !== "Folder")
+          .map((it: any) => ({
+            source: f.source,
+            title: cut(it.title ?? "", 140),
+            url: it.link || "",
+            publishedAt: it.isoDate || it.pubDate || it["dc:date"],
+            summary: cut(it.contentSnippet || it.summary || it.description || "", 180),
+          }));
 
-      return items;
-    })
-  );
+        return items;
+      })
+    );
 
-  const all: Item[] = feeds
-    .filter((r): r is PromiseFulfilledResult<Item[]> => r.status === "fulfilled")
-    .flatMap((r) => r.value);
+    const all: Item[] = feeds
+      .filter((r): r is PromiseFulfilledResult<Item[]> => r.status === "fulfilled")
+      .flatMap((r) => r.value);
 
-  const filtered: Item[] = all.filter(
-    (x) =>
-      x.url &&
-      x.title &&
-      !looksGenericTitle(x.title) &&
-      isRecent(x.publishedAt) &&
-      x.summary &&
-      x.summary.length > 40 &&
-      !isBlocked(x.title + " " + x.summary)
-  );
+    const filtered: Item[] = all.filter(
+      (x) =>
+        x.url &&
+        x.title &&
+        !looksGenericTitle(x.title) &&
+        isRecent(x.publishedAt) &&
+        x.summary &&
+        x.summary.length > 40 &&
+        !isBlocked(x.title + " " + x.summary)
+    );
 
-  const seen = new Set<string>();
+    const seen = new Set<string>();
+    const dedup = filtered.filter((x) => {
+      const key = x.url + x.title;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
 
-  const dedup: Item[] = filtered.filter((x) => {
-    const key = x.url + x.title;
+    dedup.sort(
+      (a, b) =>
+        new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
+    );
 
-    if (seen.has(key)) return false;
-
-    seen.add(key);
-    return true;
-  });
-
-  dedup.sort(
-    (a, b) =>
-      new Date(b.publishedAt || 0).getTime() -
-      new Date(a.publishedAt || 0).getTime()
-  );
-
-  res.status(200).json({
-    items: dedup.slice(0, MAX_ITEMS),
-  });
+    return res.status(200).json({ items: dedup.slice(0, MAX_ITEMS) });
+  } catch {
+    // nunca quebra a TV: responde vazio
+    return res.status(200).json({ items: [] });
+  }
 }
