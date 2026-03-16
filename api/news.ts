@@ -52,8 +52,7 @@ function isRecent(date?: string) {
 }
 
 export default async function handler(_req: any, res: any) {
-  // Otimização de Cache para Vercel
- 
+  // Configuração de Cache: 1 hora fixo + 24h de revalidação em background
   res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
@@ -66,26 +65,35 @@ export default async function handler(_req: any, res: any) {
     });
 
     const feedsResults = await Promise.allSettled(
-      FEEDS.map(async (f): Promise<Item[]> => { // <-- Tipagem explícita aqui resolve o erro
+      FEEDS.map(async (f): Promise<Item[]> => {
         const feed = await parser.parseURL(f.url);
 
         return (feed.items || [])
           .filter((it: any) => it["dc:type"] !== "Folder")
-          .map((it: any) => ({
-            source: f.source,
-            title: cut(it.title ?? "", 140),
-            url: it.link || "",
-            publishedAt: it.isoDate || it.pubDate || it["dc:date"] || undefined,
-            summary: cut(it.contentSnippet || it.summary || it.description || "", 180),
-          }));
+          .map((it: any) => {
+            // Normalização de data para garantir ordenação perfeita
+            const rawDate = it.isoDate || it.pubDate || it["dc:date"];
+            const validDate = rawDate && !isNaN(Date.parse(rawDate)) 
+              ? new Date(rawDate).toISOString() 
+              : undefined;
+
+            return {
+              source: f.source,
+              title: cut(it.title ?? "", 140),
+              url: it.link || "",
+              publishedAt: validDate,
+              summary: cut(it.contentSnippet || it.summary || it.description || "", 180),
+            };
+          });
       })
     );
 
-    // Extração segura dos resultados fulfilled
+    // Extração dos resultados com sucesso
     const all: Item[] = feedsResults
       .filter((r): r is PromiseFulfilledResult<Item[]> => r.status === "fulfilled")
       .flatMap((r) => r.value);
 
+    // Filtros de qualidade e segurança
     const filtered: Item[] = all.filter(
       (x) =>
         x.url &&
@@ -97,6 +105,7 @@ export default async function handler(_req: any, res: any) {
         !isBlocked(x.title + " " + x.summary)
     );
 
+    // Deduplicação por URL + Título
     const seen = new Set<string>();
     const dedup = filtered.filter((x) => {
       const key = (x.url + x.title).toLowerCase();
@@ -105,11 +114,15 @@ export default async function handler(_req: any, res: any) {
       return true;
     });
 
-    dedup.sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
+    // Ordenação final: das mais recentes para as mais antigas
+    dedup.sort((a, b) => 
+      new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
+    );
 
     return res.status(200).json({ items: dedup.slice(0, MAX_ITEMS) });
   } catch (error) {
     console.error("Erro na API de notícias:", error);
+    // Em caso de falha crítica, retorna vazio para não quebrar o componente
     return res.status(200).json({ items: [] });
   }
 }
