@@ -22,15 +22,7 @@ const FEEDS = [
 ];
 
 const BLOCK_WORDS = ["bunda", "sexo", "porn", "pornô", "nude", "nudes"];
-
-const GENERIC_TITLES = new Set([
-  "artigos",
-  "notícias",
-  "ultimas noticias",
-  "últimas notícias",
-  "últimas",
-  "destaques",
-]);
+const GENERIC_TITLES = new Set(["artigos", "notícias", "ultimas noticias", "últimas notícias", "últimas", "destaques"]);
 
 function stripHtml(s = "") {
   return s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
@@ -60,37 +52,37 @@ function isRecent(date?: string) {
 }
 
 export default async function handler(_req: any, res: any) {
-  // mais cache = menos chamadas aos RSS = mais estabilidade
-  res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=3600");
+  // Otimização de Cache para Vercel
+ 
+  res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
   try {
     const parser = new Parser({
-      timeout: 8000,
+      timeout: 5000,
       customFields: {
         item: ["dc:date", "dc:type", "description", "summary"],
       } as any,
     });
 
-    const feeds = await Promise.allSettled(
-      FEEDS.map(async (f) => {
+    const feedsResults = await Promise.allSettled(
+      FEEDS.map(async (f): Promise<Item[]> => { // <-- Tipagem explícita aqui resolve o erro
         const feed = await parser.parseURL(f.url);
 
-        const items: Item[] = (feed.items || [])
+        return (feed.items || [])
           .filter((it: any) => it["dc:type"] !== "Folder")
           .map((it: any) => ({
             source: f.source,
             title: cut(it.title ?? "", 140),
             url: it.link || "",
-            publishedAt: it.isoDate || it.pubDate || it["dc:date"],
+            publishedAt: it.isoDate || it.pubDate || it["dc:date"] || undefined,
             summary: cut(it.contentSnippet || it.summary || it.description || "", 180),
           }));
-
-        return items;
       })
     );
 
-    const all: Item[] = feeds
+    // Extração segura dos resultados fulfilled
+    const all: Item[] = feedsResults
       .filter((r): r is PromiseFulfilledResult<Item[]> => r.status === "fulfilled")
       .flatMap((r) => r.value);
 
@@ -107,20 +99,17 @@ export default async function handler(_req: any, res: any) {
 
     const seen = new Set<string>();
     const dedup = filtered.filter((x) => {
-      const key = x.url + x.title;
+      const key = (x.url + x.title).toLowerCase();
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
 
-    dedup.sort(
-      (a, b) =>
-        new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
-    );
+    dedup.sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
 
     return res.status(200).json({ items: dedup.slice(0, MAX_ITEMS) });
-  } catch {
-    // nunca quebra a TV: responde vazio
+  } catch (error) {
+    console.error("Erro na API de notícias:", error);
     return res.status(200).json({ items: [] });
   }
 }
