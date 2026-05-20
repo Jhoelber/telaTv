@@ -8,7 +8,7 @@ export const Video = React.memo(() => {
     `?autoplay=1&loop=1&playlist=${videoId}` +
     `&mute=1&controls=0&modestbranding=1&rel=0` +
     `&playsinline=1&fs=0&disablekb=1` +
-    `&cc_load_policy=0`;
+    `&cc_load_policy=0&iv_load_policy=3`;
 
   return (
     <div className="relative w-full pb-[56.25%] bg-black overflow-hidden">
