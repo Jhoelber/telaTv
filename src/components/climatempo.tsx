@@ -35,7 +35,7 @@ export const ClimaTempo = () => {
           </div>
 
           <div className="h-full min-w-0 overflow-hidden flex flex-col">
-            <div className="w-full overflow-hidden rounded-[28px] shadow-[0_18px_60px_rgba(0,0,0,0.35)] ring-1 ring-black/10">
+            <div className="w-full overflow-hidden rounded-[28px]  ring-1 ring-black/10">
               <Video />
               <RelogioData label="DIVULGAÇÕES NACIONAIS" />
             </div>
