@@ -3,12 +3,12 @@ import React from "react";
 export const Video = React.memo(() => {
   const videoId = "fDOIQWzCm8A";
 
-  const src =
-    `https://www.youtube.com/embed/${videoId}` +
-    `?autoplay=1&loop=1&playlist=${videoId}` +
-    `&mute=1&controls=0&rel=0` +
-    `&playsinline=1&fs=0&disablekb=1` +
-    `&iv_load_policy=3`;
+ const src =
+  `https://www.youtube.com/embed/${videoId}` +
+  `?autoplay=1&loop=1&playlist=${videoId}` +
+  `&mute=1&controls=0&rel=0` +
+  `&playsinline=1&fs=0&disablekb=1` +
+  `&iv_load_policy=3`;
 
   return (
     <div className="relative w-full pb-[56.25%] bg-black overflow-hidden">
