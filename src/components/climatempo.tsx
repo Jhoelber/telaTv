@@ -20,8 +20,8 @@ export const ClimaTempo = () => {
       style={{
         height: "calc(var(--vh, 1vh) * 100)",
         backgroundImage:
-          "url('https://res.cloudinary.com/dfgbasaxa/image/upload/v1784638875/images/imagemchatgpt_knyuyk.png')",
-        //https://res.cloudinary.com/ddzqr6r2m/image/upload/v1780083815/ChatGPT_Image_29_de_mai._de_2026_16_39_08_rnhsgk.png
+          "url('https://res.cloudinary.com/ddzqr6r2m/image/upload/v1780083815/ChatGPT_Image_29_de_mai._de_2026_16_39_08_rnhsgk.png')",
+        //
       }}
     >
       <div className="h-full w-full overflow-hidden p-[clamp(12px,2.2vw,22px)]">
