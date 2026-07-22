@@ -44,7 +44,7 @@ export const ClimaTempoDadosEmp = () => {
         <div className="w-full h-full flex items-center justify-center overflow-hidden">
           <Carousel
             items={items}
-            interval={4000}
+            interval={6000}
             className="h-full w-[min(92%,260px)]"
           />
         </div>
