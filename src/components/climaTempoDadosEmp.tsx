@@ -14,8 +14,8 @@ const items = [
     alt: "nota fiscal",
   },
   {
-    src: "https://res.cloudinary.com/dfgbasaxa/image/upload/v1784729289/images/notafiscal_wpdp12.png",
-    alt: "nota fiscal",
+    src: "https://res.cloudinary.com/dfgbasaxa/image/upload/v1784730373/images/ChatGPT_Image_22_de_jul._de_2026_11_25_46_nq96bj.png",
+    alt: "baixa mei",
   }
 ];
 
